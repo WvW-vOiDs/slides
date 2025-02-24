@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "slidev",
-    "build": "slidev build --base /test-demo2/ --out ../../dist/slides/test-demo2/",
+    "build": "slidev build --base /test-demo2/ --out ../../dist/test-demo2/",
     "export": "slidev export --dark --with-clicks --output ../test-demo2.pdf"
   },
   "dependencies": {
