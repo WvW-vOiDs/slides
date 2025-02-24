@@ -14,9 +14,6 @@ importers:
       '@slidev/theme-default':
         specifier: latest
         version: 0.25.0
-      '@slidev/theme-seriph':
-        specifier: latest
-        version: 0.25.0
       pnpm:
         specifier: ^8.7.1
         version: 8.15.9
