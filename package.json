@@ -1,16 +1,17 @@
 {
-  "name": "test_demo",
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "slidev build",
-    "dev": "slidev --open",
-    "export": "slidev export"
+    "build": "rimraf dist && pnpm -r run build",
+    "export": "pnpm -r run export",
+    "serve": "netlify dev"
   },
   "dependencies": {
     "@slidev/cli": "^51.3.0",
     "@slidev/theme-default": "latest",
     "@slidev/theme-seriph": "latest",
+    "pnpm": "^8.7.1",
+    "rimraf": "^5.0.1",
     "vue": "^3.5.13"
   }
 }
