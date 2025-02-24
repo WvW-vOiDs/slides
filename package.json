@@ -6,7 +6,7 @@
     "export": "pnpm -r run export",
     "serve": "netlify dev"
   },
-  "dependencies": {
+  "devDependencies": {
     "@slidev/cli": "^51.3.0",
     "@slidev/theme-default": "latest",
     "@slidev/theme-seriph": "latest",
