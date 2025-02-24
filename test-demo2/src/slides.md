@@ -1,5 +1,4 @@
 ---
-
 theme: default
 background: https://cover.sli.dev
 # some information about your slides (markdown enabled)
