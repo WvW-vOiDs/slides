@@ -20,6 +20,9 @@ drawings:
 transition: slide-left
 # enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
+
+# favicon: see https://github.com/WvW-vOiDs/wvw-voids.github.io
+favicon: "https://wvw-voids.github.io/icon/favicon.ico"
 ---
 
 # Welcome to Slidev
