@@ -24,6 +24,15 @@ importers:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.7.3)
 
+  The-beamer-class-for-LATEX/src:
+    dependencies:
+      '@slidev/cli':
+        specifier: ^51.3.0
+        version: 51.3.0(@babel/parser@7.26.9)(@nuxt/kit@3.15.4)(@types/markdown-it@14.1.2)(@types/node@18.19.76)(@vue/compiler-sfc@3.5.13)(markdown-it-async@2.0.0)(postcss@8.5.3)
+      '@slidev/theme-default':
+        specifier: latest
+        version: 0.25.0
+
   test-demo/src:
     dependencies:
       '@slidev/cli':
@@ -38,15 +47,6 @@ importers:
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.7.3)
-
-  test-demo2/src:
-    dependencies:
-      '@slidev/cli':
-        specifier: ^51.3.0
-        version: 51.3.0(@babel/parser@7.26.9)(@nuxt/kit@3.15.4)(@types/markdown-it@14.1.2)(@types/node@18.19.76)(@vue/compiler-sfc@3.5.13)(markdown-it-async@2.0.0)(postcss@8.5.3)
-      '@slidev/theme-default':
-        specifier: latest
-        version: 0.25.0
 
 packages:
 
