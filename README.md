@@ -1,11 +1,18 @@
-# Welcome to [Slidev](https://github.com/slidevjs/slidev)!
+个人 Slides 仓库. - Supported by [Slidev](https://cn.sli.dev/)
 
-To start the slide show:
+## Beamer to Slidev
 
-- `pnpm install`
-- `pnpm dev`
-- visit <http://localhost:3030>
+1. 安装依赖.
 
-Edit the [slides.md](./slides.md) to see the changes.
+```bash
+pip3 install PyMuPDF
+```
+2. 复制 main.pdf 文件到 项目根目录.
 
-Learn more about Slidev at the [documentation](https://sli.dev/).
+3. 执行 `./utils/beamer2slidev/create_project.sh`.
+
+```bash
+./utils/beamer2slidev/create_project.sh
+```
+
+4. 根据 beamer 修改 title, colorSchema 和 aspectRatio 等参数.
