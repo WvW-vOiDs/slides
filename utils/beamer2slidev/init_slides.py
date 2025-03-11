@@ -69,6 +69,7 @@ def create_slides_md(base_name: str, num_pages: int) -> None:
             "\n"
             "# 幻灯片的总标题，如果没有指定，那么将以第一张拥有标题的幻灯片的标题作为总标题。\n"
             f"title: {title}\n"
+            "# subtitle: subtitle\n"
             "\n"
             "# 网页的标题模板，`%s` 会被页面的标题替换。\n"
             "titleTemplate: '%s - WvW-vOiDs'\n"
@@ -209,7 +210,7 @@ def create_slides_md(base_name: str, num_pages: int) -> None:
             "#   dir: ltr\n"
             "#   lang: en\n"
             "---\n\n"
-            "# The Beginning of the Slide\n\n"
+            "## The Beginning of the Slide\n\n"
             "| Keyboard Shortcut                                                  | Description                    |\n"
             "|--------------------------------------------------------------------|--------------------------------|\n"
             "| <kbd>right</kbd> / <kbd>down</kbd> / <kbd>space</kbd>              | next animation or slide        |\n"
@@ -252,7 +253,7 @@ def create_package_json(base_name: str) -> None:
     with package_json_path.open('w', encoding='utf-8') as f:
         f.write(
             '{\n'
-            f'  "name": "{base_name}",\n'
+            f'  "name": "{base_name.lower()}",\n'
             '  "private": true,\n'
             '  "scripts": {\n'
             '    "dev": "slidev",\n'
