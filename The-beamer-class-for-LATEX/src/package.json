@@ -1,0 +1,13 @@
+{
+  "name": "The-beamer-class-for-LATEX",
+  "private": true,
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build --base /slides/The-beamer-class-for-LATEX/ --out ../../dist/The-beamer-class-for-LATEX/",
+    "export": "slidev export --dark --with-clicks --output ../The-beamer-class-for-LATEX.pdf"
+  },
+  "dependencies": {
+    "@slidev/cli": "^51.3.0",
+    "@slidev/theme-default": "latest"
+  }
+}
