@@ -154,7 +154,7 @@ drawings:
 | <kbd>right</kbd> / <kbd>down</kbd> / <kbd>space</kbd>              | next animation or slide        |
 | <kbd>left</kbd> / <kbd>up</kbd> / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide    |
 | <kbd>f</kbd>                                                       | Toggle fullscreen              |
-| <kbd>o</kbd>                                                       | Toggle Quick Overview          |
+| <kbd>o</kbd> / <ked>\`</kbd>                                       | Toggle Quick Overview          |
 | <kbd>g</kbd>                                                       | Show goto...                   |
 
 ## Reference
