@@ -141,10 +141,10 @@ drawings:
   # presenterOnly: false
   # syncAll: true
 
-# HTML 标签属性
-# htmlAttrs:
-#   dir: ltr
-#   lang: en
+  # HTML 标签属性
+  # htmlAttrs:
+  #   dir: ltr
+  #   lang: en
 ---
 
 ## The Beginning of the Slide
@@ -154,7 +154,7 @@ drawings:
 | <kbd>right</kbd> / <kbd>down</kbd> / <kbd>space</kbd>              | next animation or slide        |
 | <kbd>left</kbd> / <kbd>up</kbd> / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide    |
 | <kbd>f</kbd>                                                       | Toggle fullscreen              |
-| <kbd>o</kbd> / <ked>\`</kbd>                                       | Toggle Quick Overview          |
+| <kbd>o</kbd> / <kbd> ` </kbd>                                       | Toggle Quick Overview          |
 | <kbd>g</kbd>                                                       | Show goto...                   |
 
 ## Reference
@@ -876,4 +876,3 @@ backgroundSize: contain
 <!-- 第 71 页批注:
 
 -->
-
