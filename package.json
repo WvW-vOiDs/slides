@@ -6,7 +6,7 @@
     "serve": "netlify dev"
   },
   "devDependencies": {
-    "@slidev/cli": "^51.3.0",
+    "@slidev/cli": "^51.5.0",
     "@slidev/theme-default": "latest",
     "pnpm": "^9.15.0",
     "rimraf": "^5.0.1",

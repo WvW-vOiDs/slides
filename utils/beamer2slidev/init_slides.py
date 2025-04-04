@@ -261,7 +261,7 @@ def create_package_json(base_name: str) -> None:
             f'    "export": "slidev export --dark --with-clicks --output ../{base_name}.pdf"\n'
             '  },\n'
             '  "dependencies": {\n'
-            '    "@slidev/cli": "^51.3.0",\n'
+            '    "@slidev/cli": "^51.5.0",\n'
             '    "@slidev/theme-default": "latest"\n'
             '  }\n'
             '}'
