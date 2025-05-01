@@ -7,7 +7,7 @@
     "export": "slidev export --dark --with-clicks --output ../The-beamer-class-for-LATEX.pdf"
   },
   "dependencies": {
-    "@slidev/cli": "^51.5.0",
-    "@slidev/theme-default": "latest"
+    "@slidev/cli": "catalog:",
+    "@slidev/theme-default": "catalog:"
   }
 }

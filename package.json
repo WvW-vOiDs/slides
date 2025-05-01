@@ -2,14 +2,10 @@
   "private": true,
   "scripts": {
     "build": "rimraf dist && pnpm -r run build",
-    "export": "pnpm -r run export",
-    "serve": "netlify dev"
+    "export": "pnpm -r run export"
   },
   "devDependencies": {
-    "@slidev/cli": "^51.5.0",
-    "@slidev/theme-default": "latest",
-    "pnpm": "^9.15.0",
-    "rimraf": "^5.0.1",
-    "vue": "^3.5.13"
+    "pnpm": "catalog:",
+    "rimraf": "catalog:"
   }
 }
