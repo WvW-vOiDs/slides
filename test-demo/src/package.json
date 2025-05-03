@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "slidev",
-    "build": "slidev build --base /slides/test-demo/ --out ../../dist/test-demo/",
+    "build": "slidev build --base /slides/test-demo/ --out ../../dist/test-demo/ && touch ../../dist/test-demo/.nojekyll",
     "export": "slidev export --dark --with-clicks --output ../test-demo.pdf"
   },
   "dependencies": {
