@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "slidev",
-    "build": "slidev build --base /slides/The-beamer-class-for-LATEX/ --out ../../dist/The-beamer-class-for-LATEX/ && touch ../../dist/The-beamer-class-for-LATEX/.nojekyll",
+    "build": "slidev build --base /slides/The-beamer-class-for-LATEX/ --out ../../dist/The-beamer-class-for-LATEX/",
     "export": "slidev export --dark --with-clicks --output ../The-beamer-class-for-LATEX.pdf"
   },
   "dependencies": {
