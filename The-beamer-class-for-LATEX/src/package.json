@@ -1,5 +1,6 @@
 {
   "name": "the-beamer-class-for-latex",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "slidev",

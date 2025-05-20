@@ -254,6 +254,7 @@ def create_package_json(base_name: str) -> None:
         f.write(
             '{\n'
             f'  "name": "{base_name.lower()}",\n'
+            '  "type": "module",\n'
             '  "private": true,\n'
             '  "scripts": {\n'
             '    "dev": "slidev",\n'

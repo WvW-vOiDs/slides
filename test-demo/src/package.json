@@ -1,5 +1,6 @@
 {
   "name": "test-demo",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "slidev",
