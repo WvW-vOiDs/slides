@@ -2,8 +2,8 @@ packages:
   - '*/src'
 
 catalog:
-  '@slidev/cli': ^51.5.0
+  '@slidev/cli': latest
   '@slidev/theme-default': latest
   '@slidev/theme-seriph': latest
-  pnpm: ^9.15.0
+  pnpm: ^10.0.0
   rimraf: ^5.0.1
