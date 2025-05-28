@@ -108,7 +108,7 @@ record: false
 # wakeLock: true
 
 # vue-router 模式，可以使用 'history' 或 'hash' 模式
-# routerMode: history
+routerMode: hash
 
 # canvas 的真实宽度，单位为 px
 # canvasWidth: 980
