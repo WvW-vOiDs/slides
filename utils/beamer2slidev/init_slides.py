@@ -22,6 +22,14 @@ def pdf_to_png(pdf_path: Union[str, Path], dpi: int = 300) -> None:
     base_name = pdf_path.stem
     script_dir = Path(__file__).parent
     output_dir = script_dir / "public" / base_name
+
+    # Check if output directory already exists and has content
+    if output_dir.exists() and list(output_dir.iterdir()):
+        confirm = input(f"目录 {output_dir} 已存在且非空，是否覆盖内容？(y/N): ")
+        if confirm.lower() != 'y':
+            print("操作已取消")
+            return
+
     output_dir.mkdir(parents=True, exist_ok=True)
 
     pdf_doc = fitz.open(pdf_path)
@@ -51,188 +59,58 @@ def create_slides_md(base_name: str, num_pages: int) -> None:
     """
     script_dir = Path(__file__).parent
     slides_md_path = script_dir / "slides.md"
+    templates_dir = script_dir / "templates"
+
+    # 确保模板目录存在
+    templates_dir.mkdir(exist_ok=True)
 
     if slides_md_path.exists():
-        confirm = input(f"{slides_md_path} 已存在，是否覆盖？(y/n): ")
+        confirm = input(f"{slides_md_path} 已存在，是否覆盖？(y/N): ")
         if confirm.lower() != 'y':
             print("操作已取消")
             return
 
+    # 读取主模板文件
+    try:
+        with open(templates_dir / "slides_template.md", 'r', encoding='utf-8') as template_file:
+            slides_template = template_file.read()
+    except FileNotFoundError:
+        # 如果模板文件不存在，使用默认内置模板
+        print("警告: 模板文件不存在，使用内置模板")
+        # 这里你可以使用一个简化版的模板作为备用
+        slides_template = "---\ntitle: {title}\nexportFilename: {base_name}-exported\n---\n\n## The Beginning of the Slide\n\n"
+
+    # 读取页面模板文件
+    try:
+        with open(templates_dir / "page_template.md", 'r', encoding='utf-8') as page_template_file:
+            page_template = page_template_file.read()
+    except FileNotFoundError:
+        # 如果页面模板文件不存在，使用默认内置模板
+        print("警告: 页面模板文件不存在，使用内置模板")
+        page_template = "---\nlayout: image\nimage: /{base_name}/{file_name}\nbackgroundSize: contain\n---\n\n<!-- 第 {page_num} 页批注:\n\n-->\n\n"
+
+    # 填充模板变量
+    title = base_name.replace('-', ' ').replace('_', ' ').title()
+    slides_content = slides_template.format(title=title, base_name=base_name)
+
     num_digits = len(str(num_pages))  # 计算页数的位数
-    with slides_md_path.open('w', encoding='utf-8') as f:
-        title = base_name.replace('-', ' ').replace('_', ' ').title()
-        f.write(
-            "---\n"
-            "# **************************************************************************** #\n"
-            "#                                     Info                                     #\n"
-            "# **************************************************************************** #\n"
-            "\n"
-            "# 幻灯片的总标题，如果没有指定，那么将以第一张拥有标题的幻灯片的标题作为总标题。\n"
-            f"title: {title}\n"
-            "# subtitle: subtitle\n"
-            "\n"
-            "# 网页的标题模板，`%s` 会被页面的标题替换。\n"
-            "titleTemplate: '%s - WvW-vOiDs'\n"
-            "\n"
-            "# 幻灯片信息，可以是一个 markdown 字符串。\n"
-            "info: false\n"
-            "\n"
-            "# **************************************************************************** #\n"
-            "#                                 Configurition                                #\n"
-            "# **************************************************************************** #\n"
-            "\n"
-            "# 主题 id 或 主题包名称\n"
-            "# 了解更多：https://cn.sli.dev/guide/theme-addon#use-theme\n"
-            "theme: default\n"
-            "\n"
-            "# 附加组件, 一个可以含包名或本地路径的数组。\n"
-            "# 了解更多： https://cn.sli.dev/guide/theme-addon#use-addon\n"
-            "# addons: []\n"
-            "\n"
-            "# 幻灯片的配色方案，可以使用 'auto'，'light' 或者 'dark'\n"
-            "colorSchema: light\n"
-            "\n"
-            "# 幻灯片的长宽比\n"
-            "aspectRatio: 16/9\n"
-            "\n"
-            "# favicon 可以是本地文件路径，也可以是一个 URL\n"
-            "favicon: \"https://wvw-voids.github.io/icon/favicon.ico\"\n"
-            "\n"
-            "# 定义幻灯片与下一张幻灯片之间的过渡\n"
-            "# 了解更多： https://cn.sli.dev/guide/animations.html#slide-transitions\n"
-            "transition: slide-left\n"
-            "\n"
-            "# **************************************************************************** #\n"
-            "#                                   Exporting                                  #\n"
-            "# **************************************************************************** #\n"
-            "\n"
-            "# 要导出文件的文件名称\n"
-            f"exportFilename: {base_name}-exported\n"
-            "\n"
-            "# 导出的 PDF 或 PPTX 文件中的作者字段。\n"
-            "author: WvW-vOiDs\n"
-            "\n"
-            "# 导出选项\n"
-            "# 使用驼峰命名法的导出 CLI 选项\n"
-            "# 了解更多： https://cn.sli.dev/guide/exporting\n"
-            "export:\n"
-            "  format: pdf\n"
-            "  timeout: 30000\n"
-            "  dark: false\n"
-            "  withClicks: false\n"
-            "  withToc: false\n"
-            "\n"
-            "# **************************************************************************** #\n"
-            "#                                     Other                                    #\n"
-            "# **************************************************************************** #\n"
-            "\n"
-            "\n"
-            "# 导出的 PDF 文件中的关键字，以逗号分割。\n"
-            "# keywords: keyword1,keyword2\n"
-            "\n"
-            "# 启用演讲者模式，可以是一个 boolean 值、'dev' 或 'build'\n"
-            "# presenter: true\n"
-            "\n"
-            "# 在单页（SPA）构建中启用 pdf 下载，也可以指定一个自定义 url\n"
-            "# download: false\n"
-            "\n"
-            "\n"
-            "# 语法高亮设置，可以使用 'shiki' 或 'prism'(已弃用) 方案\n"
-            "# highlighter: shiki\n"
-            "\n"
-            "# 启用 twoslash, 可以是一个 boolean 值，'dev' 或 'build'\n"
-            "# twoslash: true\n"
-            "\n"
-            "# 在代码块中显示行号\n"
-            "# lineNumbers: false\n"
-            "\n"
-            "# 启用 monaco 编辑器，可以是一个 boolean 值，'dev' 或 'build'\n"
-            "monaco: true\n"
-            "\n"
-            "# 从何处加载 monaco 的类型，可以是 'cdn'，'local' 或 ‘none’\n"
-            "# monacoTypesSource: cdn\n"
-            "# 指定额外的本地包以导入 monaco 类型\n"
-            "# monacoTypesAdditionalPackages: []\n"
-            "# 指定额外的本地模块作为 monaco 可运行的依赖项\n"
-            "# monacoRunAdditionalDeps: []\n"
-            "\n"
-            "# 使用 vite-plugin-remote-assets 在本地下载远程资源，可以是一个 boolean 值，'dev' 或者 'build'\n"
-            "# remoteAssets: false\n"
-            "\n"
-            "# 控制幻灯片中的文本是否可以被选择\n"
-            "# selectable: true\n"
-            "\n"
-            "# 启用幻灯片录制，可以是一个 boolean 值，'dev' 或者 'build'\n"
-            "record: false\n"
-            "\n"
-            "# 启用 Slidev 的前后文菜单，可以是一个 boolean 值，'dev' 或者 'build'\n"
-            "# contextMenu: true\n"
-            "\n"
-            "# 防止休眠，可以是一个 boolean 值，'dev' 或者 'build'\n"
-            "# wakeLock: true\n"
-            "\n"
-            "# vue-router 模式，可以使用 'history' 或 'hash' 模式\n"
-            "# routerMode: history\n"
-            "\n"
-            "# canvas 的真实宽度，单位为 px\n"
-            "# canvasWidth: 980\n"
-            "\n"
-            "# 用于主题定制，会将属性 `x` 注入根样式 `--slidev-theme-x`\n"
-            "# themeConfig:\n"
-            "#   primary: '#5d8392'\n"
-            "\n"
-            "# 用于渲染图表的 PlantUML 服务器的 URL\n"
-            "# 了解更多： https://cn.sli.dev/features/plantuml.html\n"
-            "# plantUmlServer: https://www.plantuml.com/plantuml\n"
-            "\n"
-            "# 字体将从 Google 字体自动导入\n"
-            "# 了解更多： https://cn.sli.dev/custom/config-fonts\n"
-            "# fonts:\n"
-            "#   sans: Roboto\n"
-            "#   serif: Roboto Slab\n"
-            "#   mono: Fira Code\n"
-            "\n"
-            "# 为所有幻灯片添加默认的 frontmatter\n"
-            "# defaults:\n"
-            "#   layout: default\n"
-            "# ...\n"
-            "\n"
-            "# 绘制选项\n"
-            "# 了解更多：https://cn.sli.dev/features/drawing\n"
-            "drawings:\n"
-            "  enabled: true\n"
-            "  persist: false\n"
-            "  # presenterOnly: false\n"
-            "  # syncAll: true\n"
-            "\n"
-            "# HTML 标签属性\n"
-            "# htmlAttrs:\n"
-            "#   dir: ltr\n"
-            "#   lang: en\n"
-            "---\n\n"
-            "## The Beginning of the Slide\n\n"
-            "| Keyboard Shortcut                                                  | Description                    |\n"
-            "|--------------------------------------------------------------------|--------------------------------|\n"
-            "| <kbd>right</kbd> / <kbd>down</kbd> / <kbd>space</kbd>              | next animation or slide        |\n"
-            "| <kbd>left</kbd> / <kbd>up</kbd> / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide    |\n"
-            "| <kbd>f</kbd>                                                       | Toggle fullscreen              |\n"
-            "| <kbd>o</kbd>                                                       | Toggle Quick Overview          |\n"
-            "| <kbd>g</kbd>                                                       | Show goto...                   |\n\n"
-            "<div class=\"abs-br m-6 text-xl\">\n"
-            "  <a href=\"https://wvw-voids.github.io\" target=\"_blank\" class=\"slidev-icon-btn\">\n"
-            "    <carbon:logo-github />\n"
-            "  </a>\n"
-            "</div>\n\n"
+
+    # 为每一页生成内容
+    page_contents = []
+    for page_num in range(1, num_pages + 1):
+        file_name = f"{base_name}-{page_num:0{num_digits}d}.png"
+        page_content = page_template.format(
+            base_name=base_name,
+            file_name=file_name,
+            page_num=f"{page_num:0{num_digits}d}"
         )
-        for page_num in range(1, num_pages + 1):
-            f.write(
-                "---\n"
-                "layout: image\n"
-                f"image: /{base_name}/{base_name}-{page_num:0{num_digits}d}.png\n"
-                "backgroundSize: contain\n"
-                "---\n\n"
-            )
-            f.write(f"<!-- 第 {page_num:0{num_digits}d} 页批注:\n\n-->\n\n")
+        page_contents.append(page_content)
+
+    # 写入最终文件
+    with slides_md_path.open('w', encoding='utf-8') as f:
+        f.write(slides_content)
+        f.write("\n".join(page_contents))
+
     print(f"已生成: {slides_md_path}")
 
 def create_package_json(base_name: str) -> None:
@@ -245,7 +123,7 @@ def create_package_json(base_name: str) -> None:
     package_json_path = script_dir / "package.json"
 
     if package_json_path.exists():
-        confirm = input(f"{package_json_path} 已存在，是否覆盖？(y/n): ")
+        confirm = input(f"{package_json_path} 已存在，是否覆盖？(y/N): ")
         if confirm.lower() != 'y':
             print("操作已取消")
             return

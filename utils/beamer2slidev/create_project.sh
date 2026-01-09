@@ -24,10 +24,10 @@ fi
 
 # 检查目录是否已存在
 target_dir="./${project_name}"
-if [[ -d "$target_dir" ]]; then
-  echo "错误：目录 '${target_dir}' 已存在！"
-  exit 1
-fi
+# if [[ -d "$target_dir" ]]; then
+#   echo "错误：目录 '${target_dir}' 已存在！"
+#   exit 1
+# fi
 
 # 创建目录
 mkdir -p "${target_dir}/src" || {
@@ -44,6 +44,12 @@ cp "./main.pdf" "${target_dir}/src/${project_name}.pdf" || {
 
 cp "./utils/beamer2slidev/init_slides.py" "${target_dir}/src/init_slides.py" || {
   echo "错误：复制 init_slides.py 失败！"
+  rm -rf "$target_dir"
+  exit 1
+}
+
+cp -r "./utils/beamer2slidev/templates" "${target_dir}/src/templates" || {
+  echo "错误：复制 templates 失败！"
   rm -rf "$target_dir"
   exit 1
 }
@@ -66,7 +72,7 @@ mv "${target_dir}/src/${project_name}.pdf" "${target_dir}/${project_name}-origin
 }
 
 # 清理文件（按需取消注释）
-rm -f "./main.pdf" "${target_dir}/src/init_slides.py" || {
+rm -rf "./main.pdf" "${target_dir}/src/init_slides.py" "${target_dir}/src/templates" || {
   echo "错误：项目初始化成功，但删除脚本和根目录文件失败！"
   exit 1
 }
