@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@slidev/cli": "catalog:",
-    "@slidev/theme-seriph": "catalog:"
+    "@slidev/theme-seriph": "catalog:",
+    "vue": "catalog:"
   }
 }
